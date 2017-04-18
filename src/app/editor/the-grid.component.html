@@ -1,143 +1,183 @@
-<h1>The Grid Layout</h1>
-<p>Need help understanding the new display grid rule. Just edit the grid in the sidebar and apply the changes to it so you can see how it will work.</p>
-<p>Lets learn the grid. This is a basic tool for learning the grid. NOTE: This does not use template-areas and some rules can be shorthand.</p>
-<div>
-  <p>This is the grid you have defined::</p>
-  <pre>
-    display: grid;
-    grid-template-columns: {{tempColumns}};
-    grid-template-rows: {{tempRows}};
-    grid-column-gap: {{gap.column}};
-    grid-row-gap: {{gap.row}};
-    justify-items: {{justifyItem}};
-    align-items: {{alignItem}};
-    justify-content: {{justifyContent}};
-    align-content: {{alignContent}};
-  </pre>
-</div>
-<div>
-  <button class="spx-btn spx-btn--primary" (click)="toggleGridEditor()">Edit Grid</button>
-</div>
-<div class="grid" [class.is-open]="isOpen">
-  <div class="grid__editor">
-    <div>
-      <button class="spx-btn spx-btn--primary spx-btn--circle" data-icon="close" (click)="toggleGridEditor()"></button>
-      <button class="spx-btn spx-btn--primary spx-btn--material" data-icon="code" (click)="toggleItemEditor()">Toggle Editor</button>
-    </div>
-    <div class="editor-base" *ngIf="!itemEditor">
-      <div>
-        <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addCol()">Add another column</button>
-        <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addRow()">Add another row</button>
-      </div>
-      <!-- // COLUMNS -->
-      <div>
-        <form #c="ngForm" (ngSubmit)="submit(c)" class="spx-form">
-          <div class="flex">
-            <!-- {{c.value | json}} -->
-            <div class="flex__i--xs-3" *ngFor="let c of columns; let i = index">
-              <label class="spx-label">Grid Item Column {{i}}</label>
-              <input class="spx-input" type="text" [ngModel]="c.col" name="col-{{i}}" required>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div>
-        <form #r="ngForm" (ngSubmit)="submit(r)" class="spx-form">
-          <div class="flex">
-            <!-- {{r.value | json}} -->
-            <div class="flex__i--xs-3" *ngFor="let r of rows; let i = index">
-              <label class="spx-label">Grid Item Row {{i}}</label>
-              <input class="spx-input" type="text" [ngModel]="r.row" name="row-{{i}}" required>
-            </div>
-          </div>
-        </form>
-      </div>
-      <!-- // ROWS -->
-      <div>
-        <form #gp="ngForm" (ngSubmit)="submit(gp)" class="spx-form">
-          <div class="flex">
-            <!-- {{gp.value | json}} -->
-            <div class="flex__i--xs-6">
-              <label class="spx-label">Grid Column gap</label>
-              <input class="spx-input" type="text" [ngModel]="gap.column" name="gap-column" required>
-            </div>
-            <div class="flex__i--xs-6">
-              <label class="spx-label">Grid Row gap</label>
-              <input class="spx-input" type="text" [ngModel]="gap.row" name="gap-row" required>
-            </div>
-          </div>
-        </form>
-      </div>
-      <!-- // ITEMS -->
-      <div>
-        <form #alignment="ngForm" class="spx-form">
-          <div class="spx-select">
-            <label class="spx-label">Justify Items</label>
-            <select [ngModel]="justifyItem" name="justifyItem" (change)="setJustifyItems($event.target.value)">
-              <option *ngFor="let i of justifyItems" [value]="i" [selected]="justifyItem === i ">{{i}}</option>
-            </select>
-          </div>
-          <div class="spx-select">
-            <label class="spx-label">Align Items</label>
-            <select [ngModel]="alignItem" name="alignItem" (change)="setAlignItems($event.target.value)">
-              <option *ngFor="let i of justifyItems" [value]="i" [selected]="alignItem === i ">{{i}}</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <!-- // CONTENT -->
-      <div>
-        <form #alignment="ngForm" class="spx-form">
-          <div class="spx-select">
-            <label class="spx-label">Justify Content</label>
-            <select [ngModel]="justifyContent" name="justifyContent" (change)="setJustifyContent($event.target.value)">
-              <option *ngFor="let i of justifyContents" [value]="i" [selected]="justifyContent === i ">{{i}}</option>
-            </select>
-          </div>
-          <div class="spx-select">
-            <label class="spx-label">Align Content</label>
-            <select [ngModel]="alignContent" name="alignContent" (change)="setAlignContent($event.target.value)">
-              <option *ngFor="let i of justifyContents" [value]="i" [selected]="alignContent === i ">{{i}}</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <button class="spx-btn spx-btn--primary" (click)="applyGridChanges(c, r, gp)">Apply grid Changes</button>
-    </div>
+<div class="view">
 
-    <!-- // ITEM EDITOR -->
-    <div class="editor-item" *ngIf="itemEditor">
-      <!-- // ITEM PLACEMENT -->
+  <div class="view__editor">
+    <div class="grid__editor">
       <div>
-        <form #ip="ngForm" (ngSubmit)="submit(ip)" class="spx-form">
-          <div class="flex">
-            <!-- {{c.value | json}} -->
-            <div class="flex__i--xs-12">
-              <label class="spx-label">Column Item Placement</label>
-              <input class="spx-input" type="text" [ngModel]="itemColumn" name="item-column" required>
-            </div>
-            <div class="flex__i--xs-12">
-              <label class="spx-label">Row Item Placement</label>
-              <input class="spx-input" type="text" [ngModel]="itemRow" name="item-row" required>
-            </div>
-          </div>
-        </form>
+        <button class="spx-btn spx-btn--primary spx-btn--material spx-btn--sm" data-icon="code" (click)="toggleItemEditor()">Toggle Editor</button>
       </div>
-      <button class="spx-btn spx-btn--primary" (click)="applyItemChanges(ip)">Apply item Changes</button>
-    </div>
+      <div class="editor-base" *ngIf="!itemEditor">
+        <div>
+          <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addCol()">Add another column</button>
+        </div>
+        <!-- // COLUMNS -->
+        <div>
+          <form #c="ngForm" (ngSubmit)="submit(c)" class="spx-form">
+            <div class="flex">
+              <div class="flex__i--xs-3" *ngFor="let c of columns; let i = index">
+                <label class="spx-label">Column {{i}}</label>
+                <input class="spx-input" type="text" [ngModel]="c.col" name="col-{{i}}" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- // ROWS -->
+        <div>
+          <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addRow()">Add another row</button>
+        </div>
+        <div>
+          <form #r="ngForm" (ngSubmit)="submit(r)" class="spx-form">
+            <div class="flex">
+              <div class="flex__i--xs-3" *ngFor="let r of rows; let i = index">
+                <label class="spx-label">Row {{i}}</label>
+                <input class="spx-input" type="text" [ngModel]="r.row" name="row-{{i}}" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- // GAPS -->
+        <div>
+          <form #gp="ngForm" (ngSubmit)="submit(gp)" class="spx-form">
+            <div class="flex">
+              <div class="flex__i--xs-6">
+                <label class="spx-label">Grid Column gap</label>
+                <input class="spx-input" type="text" [ngModel]="gap.column" name="gap-column" required>
+              </div>
+              <div class="flex__i--xs-6">
+                <label class="spx-label">Grid Row gap</label>
+                <input class="spx-input" type="text" [ngModel]="gap.row" name="gap-row" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- // ITEMS -->
+        <div>
+          <form #alignment="ngForm" class="spx-form">
+            <div class="flex">
+              <div class="flex__i--xs-6">
+                <div class="spx-select">
+                  <label class="spx-label">Justify Items</label>
+                  <select [ngModel]="justifyItem" name="justifyItem" (change)="setJustifyItems($event.target.value)">
+                    <option *ngFor="let i of justifyItems" [value]="i" [selected]="justifyItem === i ">{{i}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex__i--xs-6">
+                  <div class="spx-select">
+                    <label class="spx-label">Align Items</label>
+                    <select [ngModel]="alignItem" name="alignItem" (change)="setAlignItems($event.target.value)">
+                      <option *ngFor="let i of justifyItems" [value]="i" [selected]="alignItem === i ">{{i}}</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- // CONTENT -->
+        <div>
+          <form #alignment="ngForm" class="spx-form">
+            <div class="flex">
+              <div class="flex__i--xs-6">
+                <div class="spx-select">
+                  <label class="spx-label">Justify Content</label>
+                  <select [ngModel]="justifyContent" name="justifyContent" (change)="setJustifyContent($event.target.value)">
+                    <option *ngFor="let i of justifyContents" [value]="i" [selected]="justifyContent === i ">{{i}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex__i--xs-6">
+                <div class="spx-select">
+                  <label class="spx-label">Align Content</label>
+                  <select [ngModel]="alignContent" name="alignContent" (change)="setAlignContent($event.target.value)">
+                    <option *ngFor="let i of justifyContents" [value]="i" [selected]="alignContent === i ">{{i}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <button class="spx-btn spx-btn--primary" (click)="applyGridChanges(c, r, gp)">Apply grid Changes</button>
+      </div>
 
-   </div> <!-- /grid-editor -->
+      <!-- // ITEM EDITOR -->
+      <div class="editor-item" *ngIf="itemEditor">
+        <!-- // ITEM PLACEMENT -->
+        <div>
+          <form #ip="ngForm" (ngSubmit)="submit(ip)" class="spx-form">
+            <div class="flex">
+              <!-- {{c.value | json}} -->
+              <div class="flex__i--xs-12">
+                <label class="spx-label">Column Item Placement</label>
+                <input class="spx-input" type="text" [ngModel]="itemColumn" name="item-column" required>
+              </div>
+              <div class="flex__i--xs-12">
+                <label class="spx-label">Row Item Placement</label>
+                <input class="spx-input" type="text" [ngModel]="itemRow" name="item-row" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- // ALIGN SELF -->
+        <div>
+          <form #aself="ngForm" class="spx-form">
+            <div class="flex">
+              <div class="flex__i--xs-12">
+                <div class="spx-select">
+                  <label class="spx-label">Align Self</label>
+                  <select [ngModel]="alignSelf" name="alignSelf" (change)="setAlignSelf($event.target.value)">
+                    <option *ngFor="let i of justifyItems" [value]="i" [selected]="alignSelf === i ">{{i}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <button class="spx-btn spx-btn--primary" (click)="applyItemChanges(ip)">Apply item Changes</button>
+      </div>
 
-  <div class="jason">
-    <!-- // GRID DISPLAY -->
-    <div class="grid-display" [ngStyle]="theGrid()" [class.item-active]="itemEditor">
-     <div class="grid-display__item" *ngFor="let item of gridItem; let i = index"></div>
-    </div>
-    <!-- // GRID DISPLAY -->
-    <div class="grid-display" [ngStyle]="theGrid()" *ngIf="itemEditor">
-     <div class="grid-display__item-edit" [ngStyle]="theItems()">
-     </div>
-    </div>
+     </div> <!-- /grid-editor -->
+
   </div>
+
+  <div class="view__display">
+    <h1>The Grid Layout</h1>
+    <!-- <p>Need help understanding the new display grid rule. Just edit the grid in the sidebar and apply the changes to it so you can see how it will work.</p>
+    <p>Lets learn the grid. This is a basic tool for learning the grid. NOTE: This does not use template-areas and some rules can be shorthand.</p>
+    <div>
+      <p>This is the grid you have defined::</p>
+      <pre>
+        display: grid;
+        grid-template-columns: {{tempColumns}};
+        grid-template-rows: {{tempRows}};
+        grid-column-gap: {{gap.column}};
+        grid-row-gap: {{gap.row}};
+        justify-items: {{justifyItem}};
+        align-items: {{alignItem}};
+        justify-content: {{justifyContent}};
+        align-content: {{alignContent}};
+      </pre>
+    </div> -->
+
+    <div class="grid-wrapper">
+      <!-- // GRID DISPLAY -->
+      <div class="grid-display" [ngStyle]="theGrid()" [class.item-active]="itemEditor">
+       <div class="grid-display__item" *ngFor="let item of gridItem; let i = index"></div>
+      </div>
+      <!-- // GRID DISPLAY -->
+      <div class="grid-display" [ngStyle]="theGrid()" *ngIf="itemEditor">
+       <div class="grid-display__item-edit" [ngStyle]="theItems()">
+       </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div class="grid" [class.is-open]="isOpen">
+
 
 </div>

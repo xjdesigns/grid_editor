@@ -8,7 +8,6 @@ import {
   templateUrl: './the-grid.component.html'
 })
 export class TheGridComponent implements OnInit {
-  isOpen: boolean = true;
   itemEditor: boolean = false;
   columns = [];
   rows = [];
@@ -19,6 +18,7 @@ export class TheGridComponent implements OnInit {
   alignItem = 'stretch';
   justifyContent = 'stretch';
   alignContent = 'stretch';
+  alignSelf = 'stretch';
   gap = {
     column: '10px',
     row: '10px'
@@ -37,8 +37,8 @@ export class TheGridComponent implements OnInit {
   // same values for justify and align CONTENT
   justifyContents = ['start', 'end', 'center', 'stretch', 'space-around', 'space-between', 'space-evenly'];
 
-  tempColumns = 'auto';
-  tempRows = 'auto';
+  tempColumns = 'auto auto';
+  tempRows = 'auto auto';
 
   constructor() {
     this.columns = [{
@@ -58,11 +58,7 @@ export class TheGridComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.gridItem = new Array(2);
-  }
-
-  toggleGridEditor() {
-    this.isOpen = !this.isOpen;
+    this.gridItem = new Array(4);
   }
 
   toggleItemEditor() {
@@ -98,7 +94,8 @@ export class TheGridComponent implements OnInit {
   theItems() {
     return {
       'grid-column': `${this.itemColumn}`,
-      'grid-row': `${this.itemRow}`
+      'grid-row': `${this.itemRow}`,
+      'align-self': `${this.alignSelf}`
     }
   }
 
@@ -155,6 +152,10 @@ export class TheGridComponent implements OnInit {
 
   setAlignContent(e) {
     this.alignContent = e;
+  }
+
+  setAlignSelf(e) {
+    this.alignSelf = e;
   }
 
   submit(v) {

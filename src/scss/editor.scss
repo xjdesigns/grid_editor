@@ -5,34 +5,13 @@
 
   &__editor {
     padding: 24px;
-    background-color: $greyscale-10;
-
-    position: fixed;
-    top: 72px;
-    left: 0;
-    bottom: 0;
-    z-index: 1001;
-    width: 30vw;
-    overflow-y: auto;
-    transform: translateX(-100%);
-    transition: transform .5s ease-in-out;
-
-    .is-open & {
-      transform: translateX(0%);
-    }
-  }
-
-  &.is-open {
-    .grid-display {
-      margin-left: calc(30vw + 12px);
-    }
   }
 }
 
 .grid-display {
   position: relative;
   background-color: $greyscale-03;
-  min-height: 200px;
+  min-height: 600px;
   margin-left: 0px;
   transition: margin-left .5s ease-in-out;
 
@@ -54,10 +33,22 @@
     padding: 6px;
   }
 }
-.jason {
+.grid-wrapper {
   position: relative;
 
   .grid-display:nth-child(2) {
     background-color: transparent;
+  }
+}
+
+.editor-base {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid $greyscale-08;
+
+  & > div {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $greyscale-08;
   }
 }

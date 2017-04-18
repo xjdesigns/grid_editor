@@ -1,5 +1,6 @@
 // 6PIXEL APP CODE
-$header: 72px;
+@import "base/var";
+$header: 36px;
 
 .app {
   width: 100%;
@@ -21,31 +22,34 @@ $header: 72px;
   height: $header;
   padding: 12px 24px;
   background: white;
-  box-shadow: 0px 2px 3px rgba(0,0,0,0.4);
+  border-bottom: 1px solid $greyscale-08;
 
   &__logo {
     flex: 1;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 300;
-    color: black;
-  }
-
-  &__links {
     color: black;
   }
 }
 
 .app-view {
-  max-width: 70vw;
-  // height: calc(100vh - 10vh - #{$header});
-  margin: calc(24px + #{$header}) auto 48px;
-  padding-bottom: 48px;
+  margin: #{$header} auto 0px;
 }
 
+.view {
+  display: flex;
+  min-height: calc(100vh - #{$header});
 
-.app-menu-title {
-  margin: 24px 0 56px;
-  border-bottom: 1px solid gray;
+  &__editor {
+    flex: 0 0 420px;
+    background-color: $greyscale-10;
+    padding: 12px;
+    overflow: hidden;
+  }
+  &__display {
+    flex: 1 1 auto;
+    padding: 12px;
+  }
 }
 
 // FOOTER
@@ -57,9 +61,5 @@ $header: 72px;
 
   p {
     font-size: .75rem;
-  }
-
-  .material-icons {
-    vertical-align: middle;
   }
 }

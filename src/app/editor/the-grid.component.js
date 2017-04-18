@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var TheGridComponent = (function () {
     function TheGridComponent() {
-        this.isOpen = true;
         this.itemEditor = false;
         this.columns = [];
         this.rows = [];
@@ -23,6 +22,7 @@ var TheGridComponent = (function () {
         this.alignItem = 'stretch';
         this.justifyContent = 'stretch';
         this.alignContent = 'stretch';
+        this.alignSelf = 'stretch';
         this.gap = {
             column: '10px',
             row: '10px'
@@ -40,8 +40,8 @@ var TheGridComponent = (function () {
         this.justifyItems = ['start', 'end', 'center', 'stretch'];
         // same values for justify and align CONTENT
         this.justifyContents = ['start', 'end', 'center', 'stretch', 'space-around', 'space-between', 'space-evenly'];
-        this.tempColumns = 'auto';
-        this.tempRows = 'auto';
+        this.tempColumns = 'auto auto';
+        this.tempRows = 'auto auto';
         this.columns = [{
                 name: '0',
                 col: 'auto'
@@ -58,10 +58,7 @@ var TheGridComponent = (function () {
             }];
     }
     TheGridComponent.prototype.ngOnInit = function () {
-        this.gridItem = new Array(2);
-    };
-    TheGridComponent.prototype.toggleGridEditor = function () {
-        this.isOpen = !this.isOpen;
+        this.gridItem = new Array(4);
     };
     TheGridComponent.prototype.toggleItemEditor = function () {
         this.itemEditor = !this.itemEditor;
@@ -92,7 +89,8 @@ var TheGridComponent = (function () {
     TheGridComponent.prototype.theItems = function () {
         return {
             'grid-column': "" + this.itemColumn,
-            'grid-row': "" + this.itemRow
+            'grid-row': "" + this.itemRow,
+            'align-self': "" + this.alignSelf
         };
     };
     TheGridComponent.prototype.applyGridChanges = function (c, r, gp) {
@@ -140,6 +138,9 @@ var TheGridComponent = (function () {
     };
     TheGridComponent.prototype.setAlignContent = function (e) {
         this.alignContent = e;
+    };
+    TheGridComponent.prototype.setAlignSelf = function (e) {
+        this.alignSelf = e;
     };
     TheGridComponent.prototype.submit = function (v) {
         console.warn('Val submitted', v);
