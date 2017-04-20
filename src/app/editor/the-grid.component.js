@@ -13,6 +13,8 @@ var core_1 = require("@angular/core");
 var TheGridComponent = (function () {
     function TheGridComponent() {
         this.itemEditor = false;
+        this.textActive = false;
+        this.imageActive = false;
         this.columns = [];
         this.rows = [];
         this.gridItem = [];
@@ -72,6 +74,19 @@ var TheGridComponent = (function () {
         var n = this.columns.length + 1;
         this.newRow.name = n.toString();
         this.rows.push(this.newRow);
+    };
+    TheGridComponent.prototype.addElement = function (e) {
+        console.warn('element add', e);
+        this.textActive = false;
+        this.imageActive = false;
+        switch (e) {
+            case 'text':
+                this.textActive = true;
+                break;
+            case 'image':
+                this.imageActive = true;
+                break;
+        }
     };
     TheGridComponent.prototype.theGrid = function () {
         return {

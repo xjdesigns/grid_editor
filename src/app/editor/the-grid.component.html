@@ -4,8 +4,9 @@
     <div class="grid__editor">
       <div>
         <button class="spx-btn spx-btn--primary spx-btn--material spx-btn--sm" data-icon="code" (click)="toggleItemEditor()">Toggle Editor</button>
+        <button class="spx-btn spx-btn--primary spx-btn--material spx-btn--sm" data-icon="code" (click)="toggleItemEditor()">Toggle Code</button>
       </div>
-      <div class="editor-base" *ngIf="!itemEditor">
+      <div class="editor-base" [class.is-open]="!itemEditor">
         <div>
           <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addCol()">Add another column</button>
         </div>
@@ -99,7 +100,7 @@
       </div>
 
       <!-- // ITEM EDITOR -->
-      <div class="editor-item" *ngIf="itemEditor">
+      <div class="editor-item" [class.is-open]="itemEditor">
         <!-- // ITEM PLACEMENT -->
         <div>
           <form #ip="ngForm" (ngSubmit)="submit(ip)" class="spx-form">
@@ -131,8 +132,34 @@
             </div>
           </form>
         </div>
-        <button class="spx-btn spx-btn--primary" (click)="applyItemChanges(ip)">Apply item Changes</button>
-      </div>
+        <div>
+          <button class="spx-btn spx-btn--primary" (click)="applyItemChanges(ip)">Apply item Changes</button>
+        </div>
+
+        <!-- // ADD ELEMENTS TO TEST -->
+        <div>
+          <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addElement('text')">Add Text</button>
+          <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addElement('image')">Add Image</button>
+          <button class="spx-btn spx-btn--primary spx-btn--sm" (click)="addElement()">Remove Element</button>
+        </div>
+
+      </div> <!-- /editor-item -->
+
+
+      <!-- <div class="code-display">
+        <p>This is the grid you have defined::</p>
+<pre>
+  display: grid;
+  grid-template-columns: {{tempColumns}};
+  grid-template-rows: {{tempRows}};
+  grid-column-gap: {{gap.column}};
+  grid-row-gap: {{gap.row}};
+  justify-items: {{justifyItem}};
+  align-items: {{alignItem}};
+  justify-content: {{justifyContent}};
+  align-content: {{alignContent}};
+</pre>
+      </div> -->
 
      </div> <!-- /grid-editor -->
 
@@ -140,22 +167,6 @@
 
   <div class="view__display">
     <h1>The Grid Layout</h1>
-    <!-- <p>Need help understanding the new display grid rule. Just edit the grid in the sidebar and apply the changes to it so you can see how it will work.</p>
-    <p>Lets learn the grid. This is a basic tool for learning the grid. NOTE: This does not use template-areas and some rules can be shorthand.</p>
-    <div>
-      <p>This is the grid you have defined::</p>
-      <pre>
-        display: grid;
-        grid-template-columns: {{tempColumns}};
-        grid-template-rows: {{tempRows}};
-        grid-column-gap: {{gap.column}};
-        grid-row-gap: {{gap.row}};
-        justify-items: {{justifyItem}};
-        align-items: {{alignItem}};
-        justify-content: {{justifyContent}};
-        align-content: {{alignContent}};
-      </pre>
-    </div> -->
 
     <div class="grid-wrapper">
       <!-- // GRID DISPLAY -->
@@ -165,19 +176,12 @@
       <!-- // GRID DISPLAY -->
       <div class="grid-display" [ngStyle]="theGrid()" *ngIf="itemEditor">
        <div class="grid-display__item-edit" [ngStyle]="theItems()">
+         <p *ngIf="textActive">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam fugiat libero, neque at. Neque ipsum voluptate debitis suscipit, aut, quod laudantium, nostrum modi laboriosam, ducimus possimus? Velit voluptas iste ipsam.</p>
+         <img  *ngIf="imageActive" src="https://images.unsplash.com/35/SRkdurVYQFSFkMyHVwSu_spinnenweb-9536.jpg?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" alt="test_image">
        </div>
       </div>
     </div>
 
   </div>
-
-</div>
-
-
-
-
-
-<div class="grid" [class.is-open]="isOpen">
-
 
 </div>

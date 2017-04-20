@@ -9,6 +9,8 @@ import {
 })
 export class TheGridComponent implements OnInit {
   itemEditor: boolean = false;
+  textActive: boolean = false;
+  imageActive: boolean = false;
   columns = [];
   rows = [];
   gridItem = [];
@@ -75,6 +77,21 @@ export class TheGridComponent implements OnInit {
     let n = this.columns.length + 1
     this.newRow.name = n.toString();
     this.rows.push(this.newRow);
+  }
+
+  addElement(e) {
+    console.warn('element add', e);
+    this.textActive = false;
+    this.imageActive = false;
+
+    switch(e) {
+      case 'text':
+        this.textActive = true;
+        break;
+      case 'image':
+        this.imageActive = true;
+        break;
+    }
   }
 
   theGrid() {

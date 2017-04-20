@@ -4,6 +4,7 @@
   position: relative;
 
   &__editor {
+    position: relative;
     padding: 24px;
   }
 }
@@ -41,14 +42,33 @@
   }
 }
 
-.editor-base {
+.editor-base,
+.editor-item {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid $greyscale-08;
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
 
   & > div {
     margin-bottom: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid $greyscale-08;
   }
+}
+
+.code-display {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  bottom: 0;
+  z-index: 100;
+  width: 350px;
+  padding: 6px;
+  background-color: rgba(0,0,0,0.9);
+  color: white;
+  font-size: .875rem;
 }
