@@ -104,15 +104,31 @@
         <!-- // ITEM PLACEMENT -->
         <div>
           <form #ip="ngForm" (ngSubmit)="submit(ip)" class="spx-form">
-            <div class="flex">
+            <div class="flex flex--xs-middle">
               <!-- {{c.value | json}} -->
               <div class="flex__i--xs-12">
                 <label class="spx-label">Column Item Placement</label>
+              </div>
+              <div class="flex__i--xs-5">
                 <input class="spx-input" type="text" [ngModel]="itemColumn" name="item-column" required>
+              </div>
+              <div class="flex__i--xs-2">
+                <label class="spx-label">/ span</label>
+              </div>
+              <div class="flex__i--xs-5">
+                <input class="spx-input" type="text" [ngModel]="itemColumnSpan" name="item-column-span" required>
               </div>
               <div class="flex__i--xs-12">
                 <label class="spx-label">Row Item Placement</label>
+              </div>
+              <div class="flex__i--xs-5">
                 <input class="spx-input" type="text" [ngModel]="itemRow" name="item-row" required>
+              </div>
+              <div class="flex__i--xs-2">
+                <label class="spx-label">/ span</label>
+              </div>
+              <div class="flex__i--xs-5">
+                <input class="spx-input" type="text" [ngModel]="itemRowSpan" name="item-row-span" required>
               </div>
             </div>
           </form>

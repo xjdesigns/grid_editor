@@ -18,8 +18,10 @@ var TheGridComponent = (function () {
         this.columns = [];
         this.rows = [];
         this.gridItem = [];
-        this.itemColumn = '1 / span 2';
-        this.itemRow = '1 / span 2';
+        this.itemColumn = '1';
+        this.itemColumnSpan = '2';
+        this.itemRow = '1';
+        this.itemRowSpan = '2';
         this.justifyItem = 'stretch';
         this.alignItem = 'stretch';
         this.justifyContent = 'stretch';
@@ -76,7 +78,6 @@ var TheGridComponent = (function () {
         this.rows.push(this.newRow);
     };
     TheGridComponent.prototype.addElement = function (e) {
-        console.warn('element add', e);
         this.textActive = false;
         this.imageActive = false;
         switch (e) {
@@ -103,8 +104,8 @@ var TheGridComponent = (function () {
     };
     TheGridComponent.prototype.theItems = function () {
         return {
-            'grid-column': "" + this.itemColumn,
-            'grid-row': "" + this.itemRow,
+            'grid-column': this.itemColumn + " / span " + this.itemColumnSpan,
+            'grid-row': this.itemRow + " / span " + this.itemRowSpan,
             'align-self': "" + this.alignSelf
         };
     };
@@ -120,7 +121,9 @@ var TheGridComponent = (function () {
     TheGridComponent.prototype.applyItemChanges = function (item) {
         var i = item.form.value;
         this.itemColumn = i['item-column'];
+        this.itemColumnSpan = i['item-column-span'];
         this.itemRow = i['item-row'];
+        this.itemRowSpan = i['item-row-span'];
     };
     TheGridComponent.prototype.setTemplateColumns = function (g) {
         var cc = [];

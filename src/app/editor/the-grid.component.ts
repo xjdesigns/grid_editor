@@ -14,8 +14,10 @@ export class TheGridComponent implements OnInit {
   columns = [];
   rows = [];
   gridItem = [];
-  itemColumn = '1 / span 2';
-  itemRow = '1 / span 2';
+  itemColumn = '1';
+  itemColumnSpan = '2';
+  itemRow = '1';
+  itemRowSpan = '2';
   justifyItem = 'stretch';
   alignItem = 'stretch';
   justifyContent = 'stretch';
@@ -80,7 +82,6 @@ export class TheGridComponent implements OnInit {
   }
 
   addElement(e) {
-    console.warn('element add', e);
     this.textActive = false;
     this.imageActive = false;
 
@@ -110,8 +111,8 @@ export class TheGridComponent implements OnInit {
 
   theItems() {
     return {
-      'grid-column': `${this.itemColumn}`,
-      'grid-row': `${this.itemRow}`,
+      'grid-column': `${this.itemColumn} / span ${this.itemColumnSpan}`,
+      'grid-row': `${this.itemRow} / span ${this.itemRowSpan}`,
       'align-self': `${this.alignSelf}`
     }
   }
@@ -129,7 +130,9 @@ export class TheGridComponent implements OnInit {
   applyItemChanges(item) {
     var i = item.form.value;
     this.itemColumn = i['item-column'];
+    this.itemColumnSpan = i['item-column-span'];
     this.itemRow = i['item-row'];
+    this.itemRowSpan = i['item-row-span'];
   }
 
   setTemplateColumns(g) {
